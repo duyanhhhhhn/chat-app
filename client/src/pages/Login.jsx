@@ -13,7 +13,6 @@ const Login = () => {
             height: "100hv",
             justifyContent: "center",
             paddingTop:'10%'
-
         }}>
             <Col xs={6}>
             <Stack gap={3}>

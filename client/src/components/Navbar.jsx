@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Container, Nav, Navbar, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Notification from "./chat/Notification";
 
 const NavBar = () => {
 
@@ -19,6 +20,7 @@ const NavBar = () => {
                     <Link to="/login" className="link-light text-decoration-none">Đăng nhập</Link>
                     <Link to="/register" className="link-light text-decoration-none">Đăng ký</Link>
                     </Stack> : <>
+                            <Notification/>
                     <Link onClick={() =>logoutUser()} to="/login" className="link-light text-decoration-none">Đăng xuất</Link>
                     </>}
                    
