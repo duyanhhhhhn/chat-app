@@ -3,15 +3,23 @@ import Chat from "./pages/Chat"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 import { Container } from "react-bootstrap"
-import "bootstrap/dist/css/bootstrap.min.css"
+import '@mantine/core/styles.css';
+
 import NavBar from "./components/Navbar"
 import { useContext } from "react"
 import { AuthContext } from "./context/AuthContext"
 import { ChatContextProvider } from "./context/ChatContext"
+import { MantineProvider, createTheme } from "@mantine/core"
+
 function App() {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
+  
+  const theme = createTheme({
+    /** Put your mantine theme override here */
+    
+});
   return (
-    <>
+    <MantineProvider theme={theme}>
       <ChatContextProvider user={user}>
          <NavBar/>
       <Container>
@@ -23,7 +31,7 @@ function App() {
         </Routes>
       </Container>
         </ChatContextProvider>
-    </>
+    </MantineProvider>
   )
 }
 

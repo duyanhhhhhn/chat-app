@@ -1,34 +1,105 @@
-import { Alert,Button,Form, Row, Col, Stack } from "react-bootstrap";
+import {
+  Anchor,
+  Button,
+  Group,
+  Paper,
+  PasswordInput,
+  Stack,
+  TextInput,
+  Container,
+  Alert,
+} from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-const Register = () => {
-    const {registerInfo,updateRegisterInfo,registerUser,registerError,isregisterLoading} = useContext(AuthContext)
-    return (<>
-    <Form onSubmit={registerUser}>
-        <Row style={{
-            height: "100hv",
-            justifyContent: "center",
-            paddingTop:'10%'
 
-        }}>
-            <Col xs={6}>
-            <Stack gap={3}>
-                    <h2>Đăng ký</h2>       
-                    <Form.Control type="text" placeholder="Tên" onChange={(e) => updateRegisterInfo({...registerInfo,name:e.target.value})}/>
-                    <Form.Control type="email" placeholder="Email" onChange={(e) => updateRegisterInfo({...registerInfo,email:e.target.value})}/>
-                    <Form.Control type="password" placeholder="Mật khẩu" onChange={(e) => updateRegisterInfo({...registerInfo,password:e.target.value})}/>
-                        <Button variant="primary" type="submit">{isregisterLoading ? "Tạo Tài khoản": "Đăng ký"}</Button>
-                        {
-                            registerError?.error &&  <Alert variant="danger ">
-                    <p>{registerError?.message}</p>
-                    </Alert> 
-                        }
-                       
-            </Stack>
-            </Col>
-        </Row>
-        </Form>
-    </>);
+export default function Register() {
+  const {
+    registerInfo,
+    updateRegisterInfo,
+    registerUser,
+    registerError,
+    isregisterLoading,
+  } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  return (
+    <Container
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingTop: "50px",
+      }}
+    >
+      <Paper
+        radius="md"
+        p="lg"
+        withBorder
+        style={{
+          width: "400px",
+        }}
+      >
+        <form onSubmit={registerUser}>
+          <Stack>
+            <TextInput
+              name="name"
+              label="Name"
+              placeholder="Enter your name"
+              value={registerInfo.name}
+              onChange={(e) =>
+                updateRegisterInfo({ ...registerInfo, name: e.target.value })
+              }
+              radius="md"
+            />
+
+            <TextInput
+              name="email"
+              label="Email"
+              placeholder="Enter your email"
+              value={registerInfo.email}
+              onChange={(e) =>
+                updateRegisterInfo({ ...registerInfo, email: e.target.value })
+              }
+              radius="md"
+            />
+
+            <PasswordInput
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+              value={registerInfo.password}
+              onChange={(e) =>
+                updateRegisterInfo({
+                  ...registerInfo,
+                  password: e.target.value,
+                })
+              }
+              radius="md"
+            />
+          </Stack>
+
+          <Group justify="space-between" mt="xl">
+            <Anchor
+              component="button"
+              type="button"
+              c="dimmed"
+              onClick={() => navigate("/login")}
+              size="xs"
+            >
+              Already have an account? Login
+            </Anchor>
+            <Button type="submit" radius="xl" loading={isregisterLoading}>
+              {isregisterLoading ? "Registering..." : "Register"}
+            </Button>
+            {registerError?.error && (
+              <Alert variant="filled" color="red" radius="md" style={{width: "100%"}}>
+                <p>{registerError?.message}</p>
+              </Alert>
+            )}
+          </Group>
+        </form>
+      </Paper>
+    </Container>
+  );
 }
- 
-export default Register;

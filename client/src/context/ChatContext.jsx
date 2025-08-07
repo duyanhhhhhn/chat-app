@@ -56,7 +56,6 @@ export const ChatContextProvider = ({ children, user }) => {
             setMessages((prev) => [...prev, res]);
         });
         socket.on("getNotification", (res) => {
-            console.log("Notification received:", res); // Kiểm tra để xác nhận bạn nhận được thông báo
             // Cập nhật state notification tại đây
             const isChatOpen = currentChat?.members.some((id) => id === res.senderId);
             if (isChatOpen) {
@@ -76,7 +75,6 @@ export const ChatContextProvider = ({ children, user }) => {
         const getUsers = async () => {
             const response = await getRequest(`${baseUrl}/users`);
             if (response.error) {
-                console.log("Error fetching users", response);
                 return;
             }
             const pChats = response.filter((u) => {
@@ -158,7 +156,6 @@ export const ChatContextProvider = ({ children, user }) => {
     const createChat = useCallback(async (firstId, secondId) => {
         const response = await postRequest(`${baseUrl}/chats`, JSON.stringify({ firstId, secondId }));
         if (response.error) {
-            console.log("Error creating chat", response);
             return;
         }
         setUserChats((prev) => [...prev, response]);

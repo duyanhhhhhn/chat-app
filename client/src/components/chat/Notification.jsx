@@ -17,8 +17,6 @@ const Notification = () => {
         };
     });
 
-    console.log("un", unreadNotifications);
-    console.log("mnn", modifiedNotifications);
 
     return (
         <div className="notifications">

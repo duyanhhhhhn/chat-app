@@ -11,7 +11,6 @@ const UserChat = ({chat, user}) => {
 
     const { onlineUsers, notification, markThisUserNotificationsAsRead } = useContext(ChatContext)
     const { lastestMessage } = useFetchLastestMessage(chat)
-    console.log(lastestMessage)
     const unreadNotifications = unreadNotificationsFunc(notification)
     const thisUserNotifications = unreadNotifications?.filter(
         n=> n.senderId === recipientUser?._id

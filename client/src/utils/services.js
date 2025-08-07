@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:3000/api"
+export const baseUrl = import.meta.env.VITE_API_URL;
 
 export const postRequest = async (url, body) => {
     console.log("body", body)
