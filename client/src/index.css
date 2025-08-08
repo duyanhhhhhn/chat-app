@@ -9,6 +9,8 @@ body {
 /* All users */
 .all-users {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 1rem;
 }
 
@@ -19,6 +21,28 @@ body {
   border-radius: 10px;
   margin-right: 0.5rem;
   position: relative;
+}
+
+/* Mantine-styled user row */
+.user-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px;
+  border-radius: 8px;
+  transition: background 120ms ease;
+}
+.user-row:hover {
+  background: var(--mantine-color-gray-1);
+}
+.user-row .left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user-row .name {
+  font-weight: 600;
 }
 
 /* User Card */

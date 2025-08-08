@@ -2,7 +2,6 @@ import{Routes, Route,Navigate} from "react-router-dom"
 import Chat from "./pages/Chat"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
-import { Container } from "react-bootstrap"
 import '@mantine/core/styles.css';
 
 import NavBar from "./components/Navbar"
@@ -22,14 +21,12 @@ function App() {
     <MantineProvider theme={theme}>
       <ChatContextProvider user={user}>
          <NavBar/>
-      <Container>
-        <Routes>
-            <Route path="/" element={ user ?< Chat/> : <Login/>} />
-            <Route path="/register" element={ user ?< Chat/> : <Register/>} />
-            <Route path="/login" element={ user ?< Chat/> : <Login/>} />
-            <Route path="*" element={<Navigate to="/"/>} />
-        </Routes>
-      </Container>
+      <Routes>
+          <Route path="/" element={ user ?< Chat/> : <Login/>} />
+          <Route path="/register" element={ user ?< Chat/> : <Register/>} />
+          <Route path="/login" element={ user ?< Chat/> : <Login/>} />
+          <Route path="*" element={<Navigate to="/"/>} />
+      </Routes>
         </ChatContextProvider>
     </MantineProvider>
   )

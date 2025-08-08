@@ -1,5 +1,15 @@
 import { useContext } from "react";
-import {Container, Stack} from "react-bootstrap"
+import {
+  Flex,
+  Stack,
+  Box,
+  Text,
+  Paper,
+  ScrollArea,
+  Divider,
+  TextInput,
+} from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { ChatContext } from "../context/ChatContext";
 import { AuthContext } from "../context/AuthContext";
 import UserChat from "../components/chat/UserChat";
@@ -7,22 +17,50 @@ import PotentialChats from "../components/chat/PotentialChats";
 import ChatBox from "../components/chat/ChatBox";
 
 const Chat = () => {
-    const { user } = useContext(AuthContext);
-    const { userChats, isUserChatsLoading, updateCurrentChat } = useContext(ChatContext)
-    return (<Container>
-        <PotentialChats/>
-        {userChats?.length < 1 ? null : (<Stack direction="horizontal" gap={4} className="align-items-start">
-            <Stack className="flex-grow-0 messages-box pe-3" gap={3}>{isUserChatsLoading && <p>Loading chats..</p>}
-                {userChats?.map((chat, index) => { 
-                    return <div key={index} onClick={()=> updateCurrentChat(chat)}>
-                        <UserChat chat={chat} user={user} />
-                </div>
-            })}
-            </Stack>
-          <ChatBox/>
+  const { user } = useContext(AuthContext);
+  const { userChats, isUserChatsLoading, updateCurrentChat, currentChat } =
+    useContext(ChatContext);
+  const isMobile = useMediaQuery('(max-width: 48em)');
+  return (
+    <Box px={isMobile ? 8 : 'md'} py={isMobile ? 8 : 'sm'}>
+      <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+        <PotentialChats />
+      </div>
+      {userChats?.length < 1 ? null : (
+        <Flex gap="md" align="stretch" direction={isMobile ? 'column' : 'row'}>
+          <Paper
+            shadow="sm"
+            radius="md"
+            p="sm"
+            withBorder
+            style={{ width: isMobile ? '100%' : 320, height: isMobile ? 'auto' : '75vh' }}
+          >
+            <Text fw={600} mb="xs">
+              Chats
+            </Text>
+            <TextInput placeholder="Tìm kiếm..." mb="sm" radius="md" />
+            <Divider mb="sm" />
+            <ScrollArea h={isMobile ? 300 : 'calc(75vh - 120px)'}>
+              <Stack gap="xs">
+                {isUserChatsLoading && <Text>Loading chats..</Text>}
+                {userChats?.map((chat, index) => {
+                  const isActive = currentChat?._id === chat._id;
+                  return (
+                    <Box key={index} onClick={() => updateCurrentChat(chat)}>
+                      <UserChat chat={chat} user={user} active={isActive} />
+                    </Box>
+                  );
+                })}
+              </Stack>
+            </ScrollArea>
+          </Paper>
+          <Box style={{ flex: 1 }}>
+            <ChatBox />
+          </Box>
+        </Flex>
+      )}
+    </Box>
+  );
+};
 
-        </Stack>)}
-    </Container>);
-}
- 
 export default Chat;

@@ -1,43 +1,10 @@
-// import { useContext } from "react";
-// import { Container, Nav, Navbar, Stack } from "react-bootstrap";
-// import { Link } from "react-router-dom";
-// import { AuthContext } from "../context/AuthContext";
-// import Notification from "./chat/Notification";
-
-// const NavBar = () => {
-
-//     const { user,logoutUser } = useContext(AuthContext)
-
-//     return (
-//         <Navbar bg="dark" className="mb-4" style={{ height: "3.75rem" }}>
-//             <Container>
-//                 <h2>
-//                     <Link to="/" className="link-light text-decoration-none">Chatapp</Link>
-//                 </h2>
-//                 {user &&<span className="text-warning">{user?.name} đang đăng nhập</span>}
-//                 <Nav>
-//                     {!user ?  <Stack direction="horizontal" gap={3}>
-//                     <Link to="/login" className="link-light text-decoration-none">Đăng nhập</Link>
-//                     <Link to="/register" className="link-light text-decoration-none">Đăng ký</Link>
-//                     </Stack> : <>
-//                             <Notification/>
-//                     <Link onClick={() =>logoutUser()} to="/login" className="link-light text-decoration-none">Đăng xuất</Link>
-//                     </>}
-
-//                 </Nav>
-//             </Container>
-//         </Navbar>
-//     );
-// }
-
-// export default NavBar;
-
 import { Box, Button, Group, Menu, Avatar, Text, UnstyledButton } from "@mantine/core";
 import classes from "../assets/css/HeaderMegaMenu.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import cx from 'clsx';
+import avatar from "../assets/avatar.jpeg";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -64,7 +31,7 @@ export default function NavBar() {
                 className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
               >
                 <Group gap={7}>
-                  <Avatar src={user.image} alt={user.name} radius="xl" size={20} />
+                  <Avatar src={avatar} alt={user.name} radius="xl" size={30} />
                   <Text fw={500} size="sm" lh={1} mr={3}>
                     {user.name}
                   </Text>
