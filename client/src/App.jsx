@@ -10,6 +10,7 @@ import { AuthContext } from "./context/AuthContext"
 import { ChatContextProvider } from "./context/ChatContext"
 import { MantineProvider, createTheme } from "@mantine/core"
 
+
 function App() {
   const { user } = useContext(AuthContext)
   
@@ -20,7 +21,7 @@ function App() {
   return (
     <MantineProvider theme={theme}>
       <ChatContextProvider user={user}>
-         <NavBar/>
+        {user && <NavBar />}
       <Routes>
           <Route path="/" element={ user ?< Chat/> : <Login/>} />
           <Route path="/register" element={ user ?< Chat/> : <Register/>} />

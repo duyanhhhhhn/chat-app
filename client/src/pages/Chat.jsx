@@ -22,25 +22,25 @@ const Chat = () => {
     useContext(ChatContext);
   const isMobile = useMediaQuery('(max-width: 48em)');
   return (
-    <Box px={isMobile ? 8 : 'md'} py={isMobile ? 8 : 'sm'}>
+    <Box px={isMobile ? 8 : 'md'} py={isMobile ? 8 : 'sm'} style={{ minHeight: 'calc(100vh - 60px)' }}>
       <div style={{ marginBottom: "10px", marginTop: "10px" }}>
         <PotentialChats />
       </div>
       {userChats?.length < 1 ? null : (
-        <Flex gap="md" align="stretch" direction={isMobile ? 'column' : 'row'}>
+        <Flex gap="md" align="stretch" direction={isMobile ? 'column' : 'row'} style={{ height: 'calc(100vh - 140px)' }}>
           <Paper
             shadow="sm"
             radius="md"
             p="sm"
             withBorder
-            style={{ width: isMobile ? '100%' : 320, height: isMobile ? 'auto' : '75vh' }}
+            style={{ width: isMobile ? '100%' : 320, height: '100%' }}
           >
             <Text fw={600} mb="xs">
               Chats
             </Text>
             <TextInput placeholder="Tìm kiếm..." mb="sm" radius="md" />
             <Divider mb="sm" />
-            <ScrollArea h={isMobile ? 300 : 'calc(75vh - 120px)'}>
+            <ScrollArea h='calc(100% - 120px)'>
               <Stack gap="xs">
                 {isUserChatsLoading && <Text>Loading chats..</Text>}
                 {userChats?.map((chat, index) => {
